@@ -23,7 +23,7 @@ body::before {
 }
 
 /* LANG */
-.lang-switch { position: fixed; top: 1.5rem; right: 5rem; z-index: 200; display: flex; border: 0.5px solid rgba(0,229,255,0.18); }
+.lang-switch { display: flex; border: 0.5px solid rgba(0,229,255,0.18); }
 .lang-btn { font-size: 9px; letter-spacing: 0.18em; padding: 5px 11px; background: transparent; color: var(--muted); border: none; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all 0.2s; }
 .lang-btn.active { background: var(--cyan-dim); color: var(--cyan); }
 
@@ -225,11 +225,6 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
 </head>
 <body>
 
-<div class="lang-switch">
-  <button class="lang-btn active" onclick="setLang('es')" id="btn-es">ES</button>
-  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
-</div>
-
 <nav id="mainNav">
   <div class="nav-logo"><img src="Logo_Circulo.png" alt="JAY B Entertainment"></div>
   <ul class="nav-links">
@@ -238,7 +233,13 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
     <li><a href="#alliance" data-es="Alianzas" data-en="Alliance">Alianzas</a></li>
     <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
-  <a href="#contact" class="nav-cta" data-es="Trabajemos juntos" data-en="Let's work together">Trabajemos juntos</a>
+  <div style="display:flex; align-items:center; gap:1rem;">
+    <a href="#contact" class="nav-cta" data-es="Trabajemos juntos" data-en="Let's work together">Trabajemos juntos</a>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('es')" id="btn-es">ES</button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+    </div>
+  </div>
 </nav>
 
 <section class="hero" id="home">
