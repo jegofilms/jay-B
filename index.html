@@ -30,7 +30,7 @@ body::before {
 /* NAV */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.4rem 4rem; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s; }
 nav.scrolled { background: rgba(2,4,8,0.96); border-bottom: 0.5px solid rgba(0,229,255,0.08); backdrop-filter: blur(16px); }
-.nav-logo img { height: 40px; filter: brightness(1.1); }
+.nav-logo img { height: 44px; width: 44px; object-fit: cover; border-radius: 50%; filter: brightness(1.1); }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; position: relative; }
 .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 0.5px; background: var(--cyan); transition: width 0.3s; }
@@ -51,8 +51,8 @@ nav.scrolled { background: rgba(2,4,8,0.96); border-bottom: 0.5px solid rgba(0,2
 .blink { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); animation: blinkAnim 1.6s ease-in-out infinite; flex-shrink: 0; }
 @keyframes blinkAnim { 0%,100%{opacity:1} 50%{opacity:0.1} }
 
-.hero-mark { position: relative; z-index: 2; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.7s 0.3s forwards; }
-.hero-mark img { height: 100px; }
+.hero-mark { position: relative; z-index: 2; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.7s 0.3s forwards; }
+.hero-mark img { height: auto; width: clamp(280px, 45vw, 520px); filter: brightness(1.05); }
 
 .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 7.5vw, 8rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.035em; position: relative; z-index: 2; opacity: 0; animation: fadeUp 0.7s 0.45s forwards; }
 .t-outline { color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.55); display: block; }
@@ -190,7 +190,7 @@ section { padding: 8rem 4rem; position: relative; z-index: 1; }
 
 /* FOOTER */
 footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); padding: 2.2rem 4rem; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
-.f-logo img { height: 32px; opacity: 0.5; }
+.f-logo img { height: 32px; width: auto; opacity: 0.5; }
 .f-copy { font-size: 10px; color: var(--muted); }
 .f-links { display: flex; gap: 2rem; }
 .f-links a { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
@@ -231,7 +231,7 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
 </div>
 
 <nav id="mainNav">
-  <div class="nav-logo"><img src="Jay_B_-_Logo_Cursiva_Blanco.png" alt="JAY B Entertainment"></div>
+  <div class="nav-logo"><img src="Logo_Circulo.png" alt="JAY B Entertainment"></div>
   <ul class="nav-links">
     <li><a href="#about" data-es="Nosotros" data-en="About">Nosotros</a></li>
     <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
@@ -252,7 +252,7 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
     <span data-es="Miami, Florida — Proyección Internacional" data-en="Miami, Florida — International Reach">Miami, Florida — Proyección Internacional</span>
   </div>
 
-  <div class="hero-mark"><img src="Logo_Circulo.png" alt="JAY B"></div>
+  <div class="hero-mark"><img src="Jay_B_-_Logo_Cursiva_Blanco.png" alt="JAY B Entertainment"></div>
 
   <h1 class="hero-title">
     <span class="t-outline" data-es="TALENTO" data-en="TALENT">TALENTO</span>
@@ -486,7 +486,10 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
 </section>
 
 <footer>
-  <div class="f-logo"><img src="Jay_B_-_Logo_Cursiva_Blanco.png" alt="JAY B Entertainment"></div>
+  <div class="f-logo" style="display:flex;align-items:center;gap:10px;">
+    <img src="Logo_Circulo.png" alt="JAY B" style="height:36px;width:36px;object-fit:cover;border-radius:50%;opacity:0.6;">
+    <img src="Jay_B_-_Logo_Cursiva_Blanco.png" alt="JAY B Entertainment" style="height:28px;width:auto;opacity:0.45;">
+  </div>
   <p class="f-copy" data-es="© 2025 JAY B Entertainment. Miami, Florida. Todos los derechos reservados." data-en="© 2025 JAY B Entertainment. Miami, Florida. All rights reserved.">© 2025 JAY B Entertainment. Miami, Florida. Todos los derechos reservados.</p>
   <div class="f-links">
     <a href="#about" data-es="Nosotros" data-en="About">Nosotros</a>
