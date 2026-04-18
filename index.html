@@ -188,6 +188,27 @@ section { padding: 8rem 4rem; position: relative; z-index: 1; }
 @media(max-width:900px){ .prod-grid { grid-template-columns: repeat(2, 1fr); } }
 @media(max-width:500px){ .prod-grid { grid-template-columns: repeat(2, 1fr); } }
 
+/* COMMERCIALS */
+#commercials { background: var(--black); }
+.comm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 3rem; }
+.comm-card { display: flex; flex-direction: column; text-decoration: none; background: var(--surface); border: 0.5px solid rgba(0,229,255,0.05); transition: all 0.35s; overflow: hidden; position: relative; }
+.comm-card:hover { border-color: rgba(0,229,255,0.22); transform: translateY(-4px); }
+.comm-thumb { position: relative; overflow: hidden; aspect-ratio: 16/9; background: #000; }
+.comm-thumb img.thumb-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: transform 0.5s, opacity 0.35s; }
+.comm-card:hover .thumb-bg { transform: scale(1.05); opacity: 0.85; }
+.comm-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.comm-play-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.7); background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s; }
+.comm-play-btn svg { width: 16px; height: 16px; margin-left: 3px; }
+.comm-card:hover .comm-play-btn { background: var(--cyan); border-color: var(--cyan); color: var(--black); }
+.comm-client { position: absolute; top: 0.7rem; left: 0.7rem; background: rgba(2,4,8,0.75); padding: 4px 8px; display: flex; align-items: center; gap: 6px; }
+.comm-client img { height: 18px; width: auto; object-fit: contain; filter: brightness(10); opacity: 0.85; max-width: 70px; }
+.comm-info { padding: 0.9rem 1rem; }
+.comm-tag { font-size: 7px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.3rem; }
+.comm-title { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 0.2rem; }
+.comm-sub { font-size: 9px; color: var(--muted); }
+@media(max-width:900px){ .comm-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:500px){ .comm-grid { grid-template-columns: 1fr; } }
+
 /* FOOTER */
 footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); padding: 2.2rem 4rem; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
 .f-logo img { height: 32px; width: auto; opacity: 0.5; }
@@ -219,6 +240,10 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   .h-center{width:86px;height:86px;}
   .h-name{font-size:.78rem;} .h-name2{font-size:.68rem;}
   .banner{padding:.8rem 1.5rem;}
+  .hero-title{font-size:clamp(2rem, 11vw, 4rem);}
+  .hero-mark img{width:clamp(180px, 70vw, 320px);}
+  .stat-n{font-size:2rem;}
+  .s-title{font-size:clamp(1.6rem, 7vw, 2.5rem);}
 }
 @media(max-width:580px){ .svc-grid{grid-template-columns:1fr;} }
 </style>
@@ -231,6 +256,7 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
     <li><a href="#about" data-es="Nosotros" data-en="About">Nosotros</a></li>
     <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
     <li><a href="#alliance" data-es="Alianzas" data-en="Alliance">Alianzas</a></li>
+    <li><a href="#commercials" data-es="Comerciales" data-en="Commercials">Comerciales</a></li>
     <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
   <div style="display:flex; align-items:center; gap:1rem;">
@@ -439,6 +465,90 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   </div>
 </section>
 
+<section id="commercials">
+  <div class="s-header reveal">
+    <div class="s-tag" data-es="Comerciales" data-en="Commercials">Comerciales</div>
+    <h2 class="s-title">
+      <span data-es="NUESTROS" data-en="OUR">NUESTROS</span><br>
+      <span class="ac" data-es="COMERCIALES" data-en="COMMERCIALS">COMERCIALES</span>
+    </h2>
+  </div>
+
+  <div class="comm-grid">
+
+    <!-- Arte Oral — Animación 3D -->
+    <a href="https://www.youtube.com/watch?v=6VejYyyqfUk" target="_blank" class="comm-card reveal">
+      <div class="comm-thumb">
+        <img class="thumb-bg" src="arte-oral-logo.png" alt="Arte Oral Animación 3D" style="object-fit:contain;background:#2a2a2a;padding:1rem;">
+        <div class="comm-client"><img src="arte-oral-logo.png" alt="Arte Oral"></div>
+        <div class="comm-play"><div class="comm-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+      </div>
+      <div class="comm-info">
+        <div class="comm-tag" data-es="Animación 3D" data-en="3D Animation">Animación 3D</div>
+        <div class="comm-title">Arte Oral</div>
+        <div class="comm-sub" data-es="Estética Dental" data-en="Dental Aesthetics">Estética Dental</div>
+      </div>
+    </a>
+
+    <!-- Arte Oral — Realista -->
+    <a href="https://www.youtube.com/watch?v=1JLeGFmECw8" target="_blank" class="comm-card reveal">
+      <div class="comm-thumb">
+        <img class="thumb-bg" src="arte-oral-logo.png" alt="Arte Oral Realista" style="object-fit:contain;background:#2a2a2a;padding:1rem;">
+        <div class="comm-client"><img src="arte-oral-logo.png" alt="Arte Oral"></div>
+        <div class="comm-play"><div class="comm-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+      </div>
+      <div class="comm-info">
+        <div class="comm-tag" data-es="Comercial Realista" data-en="Realistic Commercial">Comercial Realista</div>
+        <div class="comm-title">Arte Oral</div>
+        <div class="comm-sub" data-es="Estética Dental" data-en="Dental Aesthetics">Estética Dental</div>
+      </div>
+    </a>
+
+    <!-- Trujillo Abogados -->
+    <a href="https://www.youtube.com/watch?v=mysaUhNrDgM" target="_blank" class="comm-card reveal">
+      <div class="comm-thumb">
+        <img class="thumb-bg" src="trujillo-abogados-logo.jpg" alt="Trujillo Abogados" style="object-fit:contain;background:#f5f5f5;padding:1rem;">
+        <div class="comm-client"><img src="trujillo-abogados-logo.jpg" alt="Trujillo Abogados" style="filter:none;opacity:1;max-width:90px;"></div>
+        <div class="comm-play"><div class="comm-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+      </div>
+      <div class="comm-info">
+        <div class="comm-tag" data-es="Comercial Realista" data-en="Realistic Commercial">Comercial Realista</div>
+        <div class="comm-title">Trujillo Abogados</div>
+        <div class="comm-sub">Fortaleza Legal</div>
+      </div>
+    </a>
+
+    <!-- JEGO Films — Ejército -->
+    <a href="https://www.youtube.com/watch?v=1GPa46OOs1w" target="_blank" class="comm-card reveal">
+      <div class="comm-thumb">
+        <img class="thumb-bg" src="Logo_Circulo.png" alt="JEGO Films Ejército" style="object-fit:contain;background:#0b0f1a;padding:1.5rem;">
+        <div class="comm-client"><img src="Jay_B_-_Logo_Cursiva_Blanco.png" alt="JEGO Films" style="max-width:80px;filter:brightness(1);opacity:0.9;"></div>
+        <div class="comm-play"><div class="comm-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+      </div>
+      <div class="comm-info">
+        <div class="comm-tag" data-es="Comercial Realista" data-en="Realistic Commercial">Comercial Realista</div>
+        <div class="comm-title">JEGO Films & Music</div>
+        <div class="comm-sub" data-es="Realista Ejército" data-en="Army Realistic">Realista Ejército</div>
+      </div>
+    </a>
+
+    <!-- Wilson De Jesús González — Reflexión -->
+    <a href="https://www.youtube.com/watch?v=GYnrImq6NaU" target="_blank" class="comm-card reveal">
+      <div class="comm-thumb">
+        <img class="thumb-bg" src="Logo_Circulo.png" alt="Wilson De Jesús González" style="object-fit:contain;background:#0b0f1a;padding:1.5rem;">
+        <div class="comm-client"><img src="Jay_B_-_Logo_Cursiva_Blanco.png" alt="JEGO Films" style="max-width:80px;filter:brightness(1);opacity:0.9;"></div>
+        <div class="comm-play"><div class="comm-play-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+      </div>
+      <div class="comm-info">
+        <div class="comm-tag" data-es="Reflexión — Director" data-en="Reflection — Director">Reflexión — Director</div>
+        <div class="comm-title">Wilson De Jesús González</div>
+        <div class="comm-sub" data-es="Mensaje de nuestro director" data-en="Message from our director">Mensaje de nuestro director</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
 <section id="contact">
   <div class="s-header reveal">
     <div class="s-tag" data-es="Contacto" data-en="Contact">Contacto</div>
@@ -451,10 +561,10 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
     <div class="ct-info reveal">
       <p class="ct-intro" data-es="Estamos en Miami y conectados globalmente. Si eres artista, productor, marca o empresa que busca conectar con el mejor talento y producción, escríbenos." data-en="We're in Miami and connected globally. If you're an artist, producer, brand or company looking to connect with the best talent and production, reach out.">Estamos en Miami y conectados globalmente. Si eres artista, productor, marca o empresa que busca conectar con el mejor talento y producción, escríbenos.</p>
       <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val"><a href="mailto:info@jaybentertainment.com">info@jaybentertainment.com</a></div></div>
+      <div class="ct-row"><div class="ct-lbl">WhatsApp</div><div class="ct-val"><a href="https://wa.me/17867109406" target="_blank">+1 (786) 710-9406</a></div></div>
       <div class="ct-row"><div class="ct-lbl" data-es="Sede" data-en="Headquarters">Sede</div><div class="ct-val">Miami, Florida — USA</div></div>
-      <div class="ct-row"><div class="ct-lbl" data-es="Servicios" data-en="Services">Servicios</div><div class="ct-val" data-es="Management · Booking · Audiovisual" data-en="Management · Booking · Audiovisual">Management · Booking · Audiovisual</div></div>
+      <div class="ct-row"><div class="ct-lbl" data-es="Servicios" data-en="Services">Servicios</div><div class="ct-val" data-es="Producción Musical · Audiovisual" data-en="Music Production · Audiovisual">Producción Musical · Audiovisual</div></div>
       <div class="ct-row"><div class="ct-lbl" data-es="Alianza Activa" data-en="Active Alliance">Alianza Activa</div><div class="ct-val g">JEGO Films & Music</div></div>
-      <div class="ct-row"><div class="ct-lbl" data-es="Próximo Lanzamiento" data-en="Coming Soon">Próximo Lanzamiento</div><div class="ct-val" data-es="Mediados 2025" data-en="Mid 2025">Mediados 2025</div></div>
     </div>
     <form class="ct-form reveal" onsubmit="handleSubmit(event)">
       <div class="f-row">
@@ -520,14 +630,21 @@ window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY
 
 function handleSubmit(e) {
   e.preventDefault();
+  const form = e.target;
+  const nombre = form.querySelector('input[type="text"]').value;
+  const email = form.querySelector('input[type="email"]').value;
+  const area = form.querySelector('select').value;
+  const mensaje = form.querySelector('textarea').value;
+  const texto = `*JAY B Entertainment*%0A%0A*Nombre:* ${encodeURIComponent(nombre)}%0A*Email:* ${encodeURIComponent(email)}%0A*Área:* ${encodeURIComponent(area)}%0A%0A*Mensaje:*%0A${encodeURIComponent(mensaje)}`;
+  window.open(`https://wa.me/17867109406?text=${texto}`, '_blank');
   const btn = document.getElementById('submitBtn');
-  btn.textContent = lang==='es' ? 'Mensaje Enviado ✓' : 'Message Sent ✓';
-  btn.style.cssText += ';background:#081f12;color:#5ecf9a;';
+  btn.textContent = lang==='es' ? 'Enviando por WhatsApp ✓' : 'Sending via WhatsApp ✓';
+  btn.style.cssText += ';background:#075e54;color:#25d366;';
   setTimeout(() => {
     btn.textContent = lang==='es' ? 'Enviar Mensaje' : 'Send Message';
     btn.style.background = 'var(--gold)';
     btn.style.color = 'var(--black)';
-    e.target.reset();
+    form.reset();
   }, 3000);
 }
 
