@@ -188,6 +188,34 @@ section { padding: 8rem 4rem; position: relative; z-index: 1; }
 @media(max-width:900px){ .prod-grid { grid-template-columns: repeat(2, 1fr); } }
 @media(max-width:500px){ .prod-grid { grid-template-columns: repeat(2, 1fr); } }
 
+/* JEGO LABS */
+#weblabs { background: var(--dark); }
+.labs-intro { font-size: 14px; line-height: 1.85; color: rgba(226,234,248,0.58); max-width: 680px; margin-bottom: 3.5rem; }
+.labs-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); border: 0.5px solid rgba(0,229,255,0.22); background: rgba(0,229,255,0.035); padding: 0.45rem 1rem; margin-bottom: 1.5rem; }
+.plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 3rem; }
+.plan-card { background: var(--surface); border: 0.5px solid rgba(0,229,255,0.06); padding: 2.2rem 1.8rem; position: relative; overflow: hidden; transition: all 0.35s; display: flex; flex-direction: column; }
+.plan-card:hover { border-color: rgba(0,229,255,0.18); transform: translateY(-4px); }
+.plan-card.featured { border-color: rgba(201,168,76,0.3); background: var(--surface2); }
+.plan-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold-dim), var(--gold-light), var(--gold-dim)); }
+.plan-tag { font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.8rem; }
+.plan-tag.gold { color: var(--gold); }
+.plan-name { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.plan-price { font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+.plan-price span { font-size: 1rem; color: var(--muted); font-weight: 400; font-family: 'Space Grotesk', sans-serif; }
+.plan-delivery { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid rgba(0,229,255,0.07); }
+.plan-features { display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+.plan-feat { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 12px; color: rgba(226,234,248,0.65); line-height: 1.4; }
+.plan-feat::before { content: '▸'; color: var(--cyan); font-size: 9px; margin-top: 2px; flex-shrink: 0; }
+.plan-feat.gold-feat { color: rgba(226,234,248,0.8); }
+.plan-feat.gold-feat::before { color: var(--gold); }
+.plan-cta { margin-top: 1.8rem; display: block; text-align: center; padding: 0.75rem; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif; font-weight: 500; text-decoration: none; transition: all 0.3s; border: 0.5px solid rgba(0,229,255,0.25); color: var(--cyan); }
+.plan-cta:hover { background: var(--cyan-dim); border-color: var(--cyan); }
+.plan-card.featured .plan-cta { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.plan-card.featured .plan-cta:hover { background: var(--gold-light); }
+.labs-note { font-size: 11px; color: var(--muted); line-height: 1.7; padding: 1.2rem 1.5rem; border-left: 2px solid rgba(0,229,255,0.2); margin-top: 1rem; }
+.labs-note strong { color: var(--cyan); }
+@media(max-width:900px){ .plans-grid { grid-template-columns: 1fr; gap: 2px; } }
+
 /* COMMERCIALS */
 #commercials { background: var(--black); }
 .comm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 3rem; }
@@ -256,6 +284,7 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
     <li><a href="#about" data-es="Nosotros" data-en="About">Nosotros</a></li>
     <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
     <li><a href="#alliance" data-es="Alianzas" data-en="Alliance">Alianzas</a></li>
+    <li><a href="#weblabs" data-es="Web Design" data-en="Web Design">Web Design</a></li>
     <li><a href="#commercials" data-es="Comerciales" data-en="Commercials">Comerciales</a></li>
     <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
   </ul>
@@ -462,6 +491,84 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
       </div>
     </div>
 
+  </div>
+</section>
+
+<section id="weblabs">
+  <div class="s-header reveal">
+    <div class="labs-badge"><div class="blink"></div><span data-es="Alianza JAY B × JEGO Labs" data-en="JAY B × JEGO Labs Alliance">Alianza JAY B × JEGO Labs</span></div>
+    <div class="s-tag" data-es="Diseño & Desarrollo Web" data-en="Web Design & Development">Diseño & Desarrollo Web</div>
+    <h2 class="s-title">
+      <span data-es="TU PRESENCIA" data-en="YOUR DIGITAL">TU PRESENCIA</span><br>
+      <span class="ac" data-es="DIGITAL PROFESIONAL" data-en="PRESENCE STARTS HERE">DIGITAL PROFESIONAL</span>
+    </h2>
+  </div>
+
+  <p class="labs-intro reveal" data-es="En alianza con JEGO Labs, ofrecemos diseño y desarrollo web de alto nivel con tecnología de inteligencia artificial. Páginas web únicas, modernas y optimizadas para que tu marca o negocio destaque en el mercado internacional desde Miami." data-en="In alliance with JEGO Labs, we offer high-level web design and development with artificial intelligence technology. Unique, modern and optimized websites so your brand or business stands out in the international market from Miami.">En alianza con JEGO Labs, ofrecemos diseño y desarrollo web de alto nivel con tecnología de inteligencia artificial. Páginas web únicas, modernas y optimizadas para que tu marca o negocio destaque en el mercado internacional desde Miami.</p>
+
+  <div class="plans-grid">
+
+    <!-- Starter -->
+    <div class="plan-card reveal">
+      <div class="plan-tag" data-es="Ideal para emprendedores" data-en="Ideal for entrepreneurs">Ideal para emprendedores</div>
+      <div class="plan-name" data-es="STARTER" data-en="STARTER">STARTER</div>
+      <div class="plan-price">$599<span> USD</span></div>
+      <div class="plan-delivery" data-es="Entrega en 7-10 días" data-en="Delivery in 7-10 days">Entrega en 7-10 días</div>
+      <div class="plan-features">
+        <div class="plan-feat" data-es="Landing page / 1 página" data-en="Landing page / 1 page">Landing page / 1 página</div>
+        <div class="plan-feat" data-es="Diseño responsive (móvil + desktop)" data-en="Responsive design (mobile + desktop)">Diseño responsive (móvil + desktop)</div>
+        <div class="plan-feat" data-es="Hasta 5 secciones" data-en="Up to 5 sections">Hasta 5 secciones</div>
+        <div class="plan-feat" data-es="Formulario de contacto + WhatsApp" data-en="Contact form + WhatsApp">Formulario de contacto + WhatsApp</div>
+        <div class="plan-feat" data-es="Integración redes sociales" data-en="Social media integration">Integración redes sociales</div>
+        <div class="plan-feat" data-es="Certificado SSL (https)" data-en="SSL Certificate (https)">Certificado SSL (https)</div>
+        <div class="plan-feat" data-es="1 revisión incluida" data-en="1 revision included">1 revisión incluida</div>
+      </div>
+      <a href="https://wa.me/17867109406?text=Hola%2C%20me%20interesa%20el%20plan%20Starter%20de%20dise%C3%B1o%20web" target="_blank" class="plan-cta" data-es="Solicitar Info" data-en="Request Info">Solicitar Info</a>
+    </div>
+
+    <!-- Professional (Featured) -->
+    <div class="plan-card featured reveal">
+      <div class="plan-tag gold" data-es="⭐ Más Popular" data-en="⭐ Most Popular">⭐ Más Popular</div>
+      <div class="plan-name" data-es="PROFESSIONAL" data-en="PROFESSIONAL">PROFESSIONAL</div>
+      <div class="plan-price">$1,299<span> USD</span></div>
+      <div class="plan-delivery" data-es="Entrega en 15-20 días" data-en="Delivery in 15-20 days">Entrega en 15-20 días</div>
+      <div class="plan-features">
+        <div class="plan-feat gold-feat" data-es="Sitio web completo multi-sección" data-en="Full multi-section website">Sitio web completo multi-sección</div>
+        <div class="plan-feat gold-feat" data-es="Diseño personalizado a tu marca" data-en="Custom design to your brand">Diseño personalizado a tu marca</div>
+        <div class="plan-feat gold-feat" data-es="Hasta 8 secciones + blog" data-en="Up to 8 sections + blog">Hasta 8 secciones + blog</div>
+        <div class="plan-feat gold-feat" data-es="Bilingüe Español / Inglés" data-en="Bilingual Spanish / English">Bilingüe Español / Inglés</div>
+        <div class="plan-feat gold-feat" data-es="SEO optimizado para Google" data-en="Google SEO optimized">SEO optimizado para Google</div>
+        <div class="plan-feat gold-feat" data-es="Galería de fotos y videos" data-en="Photo and video gallery">Galería de fotos y videos</div>
+        <div class="plan-feat gold-feat" data-es="Animaciones e interacciones" data-en="Animations and interactions">Animaciones e interacciones</div>
+        <div class="plan-feat gold-feat" data-es="3 revisiones incluidas" data-en="3 revisions included">3 revisiones incluidas</div>
+      </div>
+      <a href="https://wa.me/17867109406?text=Hola%2C%20me%20interesa%20el%20plan%20Professional%20de%20dise%C3%B1o%20web" target="_blank" class="plan-cta" data-es="Solicitar Info" data-en="Request Info">Solicitar Info</a>
+    </div>
+
+    <!-- Premium -->
+    <div class="plan-card reveal">
+      <div class="plan-tag" data-es="Para empresas y marcas" data-en="For companies and brands">Para empresas y marcas</div>
+      <div class="plan-name" data-es="PREMIUM" data-en="PREMIUM">PREMIUM</div>
+      <div class="plan-price">$2,499<span> USD</span></div>
+      <div class="plan-delivery" data-es="Entrega en 25-30 días" data-en="Delivery in 25-30 days">Entrega en 25-30 días</div>
+      <div class="plan-features">
+        <div class="plan-feat" data-es="Todo lo del plan Professional" data-en="Everything in Professional plan">Todo lo del plan Professional</div>
+        <div class="plan-feat" data-es="Diseño futurista con IA generativa" data-en="Futuristic design with generative AI">Diseño futurista con IA generativa</div>
+        <div class="plan-feat" data-es="E-commerce / Tienda online" data-en="E-commerce / Online store">E-commerce / Tienda online</div>
+        <div class="plan-feat" data-es="Panel de administración" data-en="Admin dashboard">Panel de administración</div>
+        <div class="plan-feat" data-es="Integración de pagos online" data-en="Online payment integration">Integración de pagos online</div>
+        <div class="plan-feat" data-es="Analytics y métricas avanzadas" data-en="Advanced analytics and metrics">Analytics y métricas avanzadas</div>
+        <div class="plan-feat" data-es="Soporte 30 días post-entrega" data-en="30-day post-delivery support">Soporte 30 días post-entrega</div>
+        <div class="plan-feat" data-es="Revisiones ilimitadas" data-en="Unlimited revisions">Revisiones ilimitadas</div>
+      </div>
+      <a href="https://wa.me/17867109406?text=Hola%2C%20me%20interesa%20el%20plan%20Premium%20de%20dise%C3%B1o%20web" target="_blank" class="plan-cta" data-es="Solicitar Info" data-en="Request Info">Solicitar Info</a>
+    </div>
+
+  </div>
+
+  <div class="labs-note reveal">
+    <strong data-es="Nota:" data-en="Note:">Nota:</strong>
+    <span data-es=" Los precios no incluyen hosting y dominio. Todos los diseños son únicos y a medida — no usamos plantillas prediseñadas. Powered by JEGO Labs con tecnología de inteligencia artificial." data-en=" Prices do not include hosting and domain. All designs are unique and custom-made — we don't use pre-designed templates. Powered by JEGO Labs with artificial intelligence technology."> Los precios no incluyen hosting y dominio. Todos los diseños son únicos y a medida — no usamos plantillas prediseñadas. Powered by JEGO Labs con tecnología de inteligencia artificial.</span>
   </div>
 </section>
 
