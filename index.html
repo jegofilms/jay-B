@@ -765,6 +765,213 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach((e, i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('on'), i*70); });
 }, {threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ═══════════════════════════════════════
+// JAY B AI AGENT
+// ═══════════════════════════════════════
+const agentOpen = document.getElementById('agent-open');
+const agentClose = document.getElementById('agent-close');
+const agentWindow = document.getElementById('agent-window');
+const agentMessages = document.getElementById('agent-messages');
+const agentInput = document.getElementById('agent-input');
+const agentSend = document.getElementById('agent-send');
+const agentBadge = document.getElementById('agent-badge');
+
+let agentHistory = [];
+let agentOpened = false;
+
+const SYSTEM_PROMPT = `Eres el asistente virtual de JAY B Entertainment, una empresa de representación artística y producción audiovisual con sede en Miami, Florida. Tu nombre es JAY — eres profesional, moderno, conciso y amigable.
+
+Información clave de la empresa:
+- JAY B Entertainment: representación artística, producción musical, producción audiovisual, diseño web
+- Sede: Miami, Florida, USA
+- WhatsApp de contacto: +1 (786) 710-9406
+- Sitio web: jaybentertainment.com
+- Alianza con JEGO Films & Music: videoclips, cortometrajes, cine, comerciales con IA
+- Alianza con JEGO Labs: diseño web profesional con IA
+- Planes de diseño web: Starter $1,499 USD / Professional $2,999 USD / Premium $5,999 USD
+- Producciones: Salo (Tatiana Silva), Olvidarte Por Completo (Tatiana Silva), El Despertar del Cóndor, Juegos de Guerra
+- Nuevos servicios lanzando Mediados 2026
+
+Responde siempre de forma breve (máximo 3-4 líneas). Si alguien quiere contratar servicios o tiene preguntas específicas, invítalos a escribir por WhatsApp al +1 (786) 710-9406. Responde en el idioma que use el usuario (español o inglés).`;
+
+const QUICK_REPLIES_ES = ['¿Qué servicios ofrecen?', '¿Cuánto cuesta una web?', '¿Cómo contactarlos?', '¿Qué producciones han hecho?'];
+const QUICK_REPLIES_EN = ['What services do you offer?', 'How much does a website cost?', 'How to contact you?', 'What productions have you done?'];
+
+function renderQuickReplies() {
+  const qr = document.getElementById('agent-quickreplies');
+  const replies = lang === 'en' ? QUICK_REPLIES_EN : QUICK_REPLIES_ES;
+  qr.innerHTML = replies.map(r => `<button class="agent-qr" onclick="sendAgentMessage('${r}')">${r}</button>`).join('');
+}
+
+function addMessage(role, text) {
+  const div = document.createElement('div');
+  div.className = `agent-msg agent-msg-${role}`;
+  div.innerHTML = `<div class="agent-bubble">${text}</div>`;
+  agentMessages.appendChild(div);
+  agentMessages.scrollTop = agentMessages.scrollHeight;
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'agent-msg agent-msg-assistant';
+  div.id = 'agent-typing';
+  div.innerHTML = `<div class="agent-bubble"><span class="agent-dots"><span></span><span></span><span></span></span></div>`;
+  agentMessages.appendChild(div);
+  agentMessages.scrollTop = agentMessages.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('agent-typing');
+  if(t) t.remove();
+}
+
+async function sendAgentMessage(text) {
+  const msg = text || agentInput.value.trim();
+  if(!msg) return;
+  agentInput.value = '';
+  document.getElementById('agent-quickreplies').style.display = 'none';
+  addMessage('user', msg);
+  agentHistory.push({ role: 'user', content: msg });
+  showTyping();
+  agentSend.disabled = true;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: SYSTEM_PROMPT,
+        messages: agentHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || (lang === 'en' ? 'Sorry, try again.' : 'Lo siento, intenta de nuevo.');
+    removeTyping();
+    addMessage('assistant', reply);
+    agentHistory.push({ role: 'assistant', content: reply });
+  } catch(err) {
+    removeTyping();
+    addMessage('assistant', lang === 'en' ? 'Connection error. Write us on WhatsApp: +1 (786) 710-9406' : 'Error de conexión. Escríbenos por WhatsApp: +1 (786) 710-9406');
+  }
+  agentSend.disabled = false;
+}
+
+agentOpen.addEventListener('click', () => {
+  agentWindow.classList.toggle('agent-visible');
+  agentBadge.style.display = 'none';
+  if(!agentOpened) {
+    agentOpened = true;
+    setTimeout(() => {
+      const greeting = lang === 'en'
+        ? '👋 Hi! I\'m <strong>JAY</strong>, the JAY B Entertainment assistant. How can I help you today?'
+        : '👋 ¡Hola! Soy <strong>JAY</strong>, el asistente de JAY B Entertainment. ¿En qué puedo ayudarte hoy?';
+      addMessage('assistant', greeting);
+      renderQuickReplies();
+    }, 300);
+  }
+});
+
+agentClose.addEventListener('click', () => agentWindow.classList.remove('agent-visible'));
+
+agentSend.addEventListener('click', () => sendAgentMessage());
+agentInput.addEventListener('keydown', e => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAgentMessage(); } });
+
+// Show badge after 4 seconds
+setTimeout(() => { agentBadge.style.display = 'flex'; }, 4000);
+
 </script>
+
+<!-- ═══ JAY B AI AGENT ═══ -->
+<style>
+/* AGENT BUTTON */
+.agent-trigger { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+#agent-open { width: 58px; height: 58px; border-radius: 50%; background: var(--gold); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 24px rgba(201,168,76,0.35); transition: all 0.3s; }
+#agent-open:hover { background: var(--gold-light); transform: scale(1.08); }
+#agent-open svg { width: 26px; height: 26px; color: var(--black); }
+#agent-badge { display: none; background: var(--surface); border: 0.5px solid rgba(201,168,76,0.3); padding: 6px 12px; font-size: 11px; color: var(--text); font-family: 'Space Grotesk', sans-serif; white-space: nowrap; align-items: center; gap: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); animation: badgePop 0.4s ease; }
+@keyframes badgePop { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+#agent-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00E5FF; animation: blinkAnim 1.5s infinite; flex-shrink: 0; }
+
+/* AGENT WINDOW */
+#agent-window { position: fixed; bottom: 6.5rem; right: 2rem; z-index: 998; width: 340px; max-height: 520px; background: var(--dark); border: 0.5px solid rgba(0,229,255,0.18); display: flex; flex-direction: column; box-shadow: 0 8px 40px rgba(0,0,0,0.6); transform: scale(0.9) translateY(20px); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+#agent-window.agent-visible { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+
+/* AGENT HEADER */
+.agent-header { display: flex; align-items: center; gap: 0.8rem; padding: 0.9rem 1rem; background: var(--surface); border-bottom: 0.5px solid rgba(0,229,255,0.1); }
+.agent-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dim), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--black); flex-shrink: 0; }
+.agent-header-info { flex: 1; }
+.agent-header-name { font-size: 13px; font-weight: 600; color: var(--text); font-family: 'Space Grotesk', sans-serif; }
+.agent-header-status { font-size: 10px; color: #00E5FF; display: flex; align-items: center; gap: 4px; }
+.agent-header-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #00E5FF; }
+#agent-close { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 18px; padding: 0 4px; transition: color 0.2s; }
+#agent-close:hover { color: var(--text); }
+
+/* MESSAGES */
+#agent-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; scrollbar-width: thin; scrollbar-color: rgba(0,229,255,0.1) transparent; }
+.agent-msg { display: flex; }
+.agent-msg-user { justify-content: flex-end; }
+.agent-msg-assistant { justify-content: flex-start; }
+.agent-bubble { max-width: 82%; padding: 0.65rem 0.9rem; font-size: 13px; line-height: 1.6; font-family: 'Space Grotesk', sans-serif; }
+.agent-msg-user .agent-bubble { background: var(--gold); color: var(--black); font-weight: 400; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); }
+.agent-msg-assistant .agent-bubble { background: var(--surface); color: var(--text); border: 0.5px solid rgba(0,229,255,0.1); clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
+
+/* TYPING DOTS */
+.agent-dots { display: flex; gap: 4px; align-items: center; height: 16px; }
+.agent-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: dotBounce 1.2s ease-in-out infinite; }
+.agent-dots span:nth-child(2) { animation-delay: 0.2s; }
+.agent-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce { 0%,80%,100%{transform:translateY(0);opacity:0.4} 40%{transform:translateY(-6px);opacity:1} }
+
+/* QUICK REPLIES */
+#agent-quickreplies { padding: 0.5rem 1rem 0; display: flex; flex-direction: column; gap: 4px; }
+.agent-qr { background: transparent; border: 0.5px solid rgba(0,229,255,0.2); color: var(--cyan); font-size: 11px; padding: 5px 10px; text-align: left; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all 0.2s; }
+.agent-qr:hover { background: var(--cyan-dim); border-color: var(--cyan); }
+
+/* INPUT */
+.agent-input-row { display: flex; gap: 0; border-top: 0.5px solid rgba(0,229,255,0.1); }
+#agent-input { flex: 1; background: var(--surface); border: none; color: var(--text); padding: 0.8rem 1rem; font-size: 13px; font-family: 'Space Grotesk', sans-serif; outline: none; }
+#agent-input::placeholder { color: var(--muted); }
+#agent-send { background: var(--gold); border: none; cursor: pointer; width: 46px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+#agent-send:hover { background: var(--gold-light); }
+#agent-send svg { width: 18px; height: 18px; color: var(--black); }
+#agent-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media(max-width:500px){
+  #agent-window { width: calc(100vw - 2rem); right: 1rem; bottom: 5.5rem; }
+  .agent-trigger { right: 1rem; }
+}
+</style>
+
+<div class="agent-trigger">
+  <div id="agent-badge">👋 ¿En qué te ayudo?</div>
+  <button id="agent-open" aria-label="Abrir asistente JAY B">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </button>
+</div>
+
+<div id="agent-window">
+  <div class="agent-header">
+    <div class="agent-avatar">J</div>
+    <div class="agent-header-info">
+      <div class="agent-header-name">JAY — Asistente AI</div>
+      <div class="agent-header-status" data-es="En línea · JAY B Entertainment" data-en="Online · JAY B Entertainment">En línea · JAY B Entertainment</div>
+    </div>
+    <button id="agent-close">✕</button>
+  </div>
+  <div id="agent-messages"></div>
+  <div id="agent-quickreplies"></div>
+  <div class="agent-input-row">
+    <input id="agent-input" type="text" placeholder="Escribe tu pregunta..." maxlength="300">
+    <button id="agent-send">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
