@@ -769,6 +769,8 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 // ═══════════════════════════════════════
 // JAY B AI AGENT
 // ═══════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+
 const agentOpen = document.getElementById('agent-open');
 const agentClose = document.getElementById('agent-close');
 const agentWindow = document.getElementById('agent-window');
@@ -824,26 +826,6 @@ function showTyping() {
 function removeTyping() {
   const t = document.getElementById('agent-typing');
   if(t) t.remove();
-}
-
-async function sendAgentMessage(text) {
-  const msg = text || agentInput.value.trim();
-  if(!msg) return;
-  agentInput.value = '';
-  document.getElementById('agent-quickreplies').style.display = 'none';
-  addMessage('user', msg);
-  agentHistory.push({ role: 'user', content: msg });
-  showTyping();
-  agentSend.disabled = true;
-
-  // Smart local responses
-  setTimeout(() => {
-    removeTyping();
-    const reply = getLocalReply(msg);
-    addMessage('assistant', reply);
-    agentHistory.push({ role: 'assistant', content: reply });
-    agentSend.disabled = false;
-  }, 900 + Math.random() * 600);
 }
 
 function getLocalReply(msg) {
@@ -939,6 +921,46 @@ agentInput.addEventListener('keydown', e => { if(e.key === 'Enter' && !e.shiftKe
 // Show badge after 4 seconds
 setTimeout(() => { agentBadge.style.display = 'flex'; }, 4000);
 
+}); // end DOMContentLoaded
+
+// Global so onclick in quick replies can call it
+function sendAgentMessage(text) {
+  const agentInput = document.getElementById('agent-input');
+  const agentSend = document.getElementById('agent-send');
+  const agentMessages = document.getElementById('agent-messages');
+  const msg = text || agentInput.value.trim();
+  if(!msg) return;
+  agentInput.value = '';
+  document.getElementById('agent-quickreplies').style.display = 'none';
+
+  // add user message
+  const userDiv = document.createElement('div');
+  userDiv.className = 'agent-msg agent-msg-user';
+  userDiv.innerHTML = '<div class="agent-bubble">' + msg + '</div>';
+  agentMessages.appendChild(userDiv);
+  agentMessages.scrollTop = agentMessages.scrollHeight;
+
+  // typing indicator
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'agent-msg agent-msg-assistant';
+  typingDiv.id = 'agent-typing-2';
+  typingDiv.innerHTML = '<div class="agent-bubble"><span class="agent-dots"><span></span><span></span><span></span></span></div>';
+  agentMessages.appendChild(typingDiv);
+  agentMessages.scrollTop = agentMessages.scrollHeight;
+  agentSend.disabled = true;
+
+  setTimeout(() => {
+    const t = document.getElementById('agent-typing-2');
+    if(t) t.remove();
+    const reply = getLocalReply(msg);
+    const botDiv = document.createElement('div');
+    botDiv.className = 'agent-msg agent-msg-assistant';
+    botDiv.innerHTML = '<div class="agent-bubble">' + reply + '</div>';
+    agentMessages.appendChild(botDiv);
+    agentMessages.scrollTop = agentMessages.scrollHeight;
+    agentSend.disabled = false;
+  }, 900 + Math.random() * 500);
+}
 </script>
 
 <!-- ═══ JAY B AI AGENT ═══ -->
