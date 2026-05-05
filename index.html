@@ -836,27 +836,84 @@ async function sendAgentMessage(text) {
   showTyping();
   agentSend.disabled = true;
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        system: SYSTEM_PROMPT,
-        messages: agentHistory
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || (lang === 'en' ? 'Sorry, try again.' : 'Lo siento, intenta de nuevo.');
+  // Smart local responses
+  setTimeout(() => {
     removeTyping();
+    const reply = getLocalReply(msg);
     addMessage('assistant', reply);
     agentHistory.push({ role: 'assistant', content: reply });
-  } catch(err) {
-    removeTyping();
-    addMessage('assistant', lang === 'en' ? 'Connection error. Write us on WhatsApp: +1 (786) 710-9406' : 'Error de conexión. Escríbenos por WhatsApp: +1 (786) 710-9406');
+    agentSend.disabled = false;
+  }, 900 + Math.random() * 600);
+}
+
+function getLocalReply(msg) {
+  const m = msg.toLowerCase();
+  const isEN = lang === 'en';
+
+  // Servicios / Services
+  if(m.match(/servicio|service|ofrece|offer|qué hace|what do/)) {
+    return isEN
+      ? '🎬 We offer <strong>Music Production</strong>, <strong>Audiovisual Production</strong> (videos, short films, commercials with AI), and <strong>Professional Web Design</strong> in alliance with JEGO Labs. What are you interested in?'
+      : '🎬 Ofrecemos <strong>Producción Musical</strong>, <strong>Producción Audiovisual</strong> (videoclips, cortometrajes, comerciales con IA) y <strong>Diseño Web Profesional</strong> en alianza con JEGO Labs. ¿Qué te interesa?';
   }
-  agentSend.disabled = false;
+  // Web / Precio web
+  if(m.match(/web|página|pagina|sitio|website|diseño|diseño|precio|costo|cost|price|plan|starter|professional|premium/)) {
+    return isEN
+      ? '💻 Our web design plans:<br><strong>Starter</strong> $1,499 USD (7-10 days)<br><strong>Professional</strong> $2,999 USD (15-20 days)<br><strong>Premium</strong> $5,999 USD (25-30 days)<br>All with AI. Write us: <strong>+1 (786) 710-9406</strong>'
+      : '💻 Nuestros planes de diseño web:<br><strong>Starter</strong> $1,499 USD (7-10 días)<br><strong>Professional</strong> $2,999 USD (15-20 días)<br><strong>Premium</strong> $5,999 USD (25-30 días)<br>Todos con IA. Escríbenos: <strong>+1 (786) 710-9406</strong>';
+  }
+  // Contacto / Contact
+  if(m.match(/contact|whatsapp|teléfono|telefono|phone|número|numero|hablar|talk|escrib/)) {
+    return isEN
+      ? '📱 You can reach us directly on WhatsApp: <strong>+1 (786) 710-9406</strong><br>Or visit <strong>jaybentertainment.com</strong> — we\'re in Miami, FL.'
+      : '📱 Puedes contactarnos directamente por WhatsApp: <strong>+1 (786) 710-9406</strong><br>O visita <strong>jaybentertainment.com</strong> — estamos en Miami, FL.';
+  }
+  // Producciones / Productions
+  if(m.match(/produc|video|clip|cortometraje|short|film|cine|salo|olvidar|cóndor|condor|guerra|tatiana/)) {
+    return isEN
+      ? '🎥 Our productions include:<br>• <strong>SALO</strong> & <strong>Olvidarte Por Completo</strong> — Tatiana Silva<br>• <strong>El Despertar del Cóndor</strong> — Festiver 2025 Official Selection<br>• <strong>Juegos de Guerra</strong><br>Check them out in the Alliance section!';
+      : '🎥 Nuestras producciones incluyen:<br>• <strong>SALO</strong> y <strong>Olvidarte Por Completo</strong> — Tatiana Silva<br>• <strong>El Despertar del Cóndor</strong> — Selección Oficial Festiver 2025<br>• <strong>Juegos de Guerra</strong><br>¡Míralos en la sección Alianzas!';
+  }
+  // JEGO
+  if(m.match(/jego|alianza|alliance|labs|films/)) {
+    return isEN
+      ? '🤝 JAY B has two active alliances:<br><strong>JEGO Films & Music</strong> — audiovisual production with AI<br><strong>JEGO Labs</strong> — professional web design with AI<br>Together we cover creativity, technology and strategy.'
+      : '🤝 JAY B tiene dos alianzas activas:<br><strong>JEGO Films & Music</strong> — producción audiovisual con IA<br><strong>JEGO Labs</strong> — diseño web profesional con IA<br>Juntos cubrimos creatividad, tecnología y estrategia.';
+  }
+  // Miami / Ubicación
+  if(m.match(/miami|ubica|location|donde|where|ciudad|city/)) {
+    return isEN
+      ? '📍 We\'re based in <strong>Miami, Florida, USA</strong> — operating internationally from the entertainment capital of Latin America.'
+      : '📍 Estamos en <strong>Miami, Florida, USA</strong> — operando internacionalmente desde la capital del entretenimiento latinoamericano.';
+  }
+  // IA / AI
+  if(m.match(/inteligencia artificial|ia |ai |artificial intelligence|tecnolog/)) {
+    return isEN
+      ? '🤖 We use cutting-edge <strong>Artificial Intelligence</strong> in all our productions — generative AI for visuals, music and web design. This allows us to create unique, innovative content at competitive prices.'
+      : '🤖 Usamos <strong>Inteligencia Artificial</strong> de vanguardia en todas nuestras producciones — IA generativa para visuales, música y diseño web. Esto nos permite crear contenidos únicos e innovadores a precios competitivos.';
+  }
+  // Saludo
+  if(m.match(/hola|hello|hi |hey|buenos|buenas|good/)) {
+    return isEN
+      ? '👋 Hello! I\'m <strong>JAY</strong>, JAY B Entertainment\'s AI assistant. How can I help you today?'
+      : '👋 ¡Hola! Soy <strong>JAY</strong>, el asistente AI de JAY B Entertainment. ¿En qué puedo ayudarte hoy?';
+  }
+  // Gracias
+  if(m.match(/gracias|thank|thanks/)) {
+    return isEN
+      ? '😊 You\'re welcome! If you need anything else, I\'m here. You can also write us directly: <strong>+1 (786) 710-9406</strong>'
+      : '😊 ¡Con gusto! Si necesitas algo más, aquí estoy. También puedes escribirnos directamente: <strong>+1 (786) 710-9406</strong>';
+  }
+  // Comerciales
+  if(m.match(/comercial|commercial|publicidad|advertising|marca|brand/)) {
+    return isEN
+      ? '📺 We produce <strong>high-impact commercials</strong> with realistic and 3D AI technology. We\'ve worked with Arte Oral, Trujillo Abogados, JEGO Films and more. Interested? Write us: <strong>+1 (786) 710-9406</strong>'
+      : '📺 Producimos <strong>comerciales de alto impacto</strong> con tecnología IA realista y 3D. Hemos trabajado con Arte Oral, Trujillo Abogados, JEGO Films y más. ¿Te interesa? Escríbenos: <strong>+1 (786) 710-9406</strong>';
+  }
+  // Default
+  return isEN
+    ? '✨ That\'s a great question! For more details, write us directly on WhatsApp: <strong>+1 (786) 710-9406</strong> — our team will be happy to help you.'
+    : '✨ ¡Buena pregunta! Para más detalles, escríbenos directamente por WhatsApp: <strong>+1 (786) 710-9406</strong> — nuestro equipo con gusto te atenderá.';
 }
 
 agentOpen.addEventListener('click', () => {
