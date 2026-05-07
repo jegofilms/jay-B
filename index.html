@@ -817,7 +817,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 @media(max-width:500px){ .jayb-agent-win{width:calc(100vw - 2rem); right:1rem;} .jayb-agent-btn{right:1rem;} .jayb-agent-badge{right:1rem;} }
 </style>
 
-<div class="jayb-agent-badge" id="jayb-badge">👋 ¿En qué te ayudo?</div>
+<div class="jayb-agent-badge" id="jayb-badge">👋 Hi! / ¡Hola!</div>
 <button class="jayb-agent-btn" id="jayb-btn" aria-label="Abrir asistente">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </button>
@@ -826,15 +826,15 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   <div class="jayb-agent-head">
     <div class="jayb-agent-avatar">J</div>
     <div>
-      <div class="jayb-agent-name">JAY — Asistente AI</div>
-      <div class="jayb-agent-status">● En línea · JAY B Entertainment</div>
+      <div class="jayb-agent-name">JAY — AI Assistant</div>
+      <div class="jayb-agent-status">● Online · JAY B Entertainment</div>
     </div>
     <button class="jayb-agent-close" id="jayb-close">✕</button>
   </div>
   <div class="jayb-agent-msgs" id="jayb-msgs"></div>
   <div class="jayb-agent-qrs" id="jayb-qrs"></div>
   <div class="jayb-agent-inp">
-    <input type="text" id="jayb-input" placeholder="Escribe tu pregunta..." maxlength="300">
+    <input type="text" id="jayb-input" placeholder="Type / Escribe..." maxlength="300">
     <button id="jayb-send">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
@@ -865,18 +865,27 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   input.onkeydown = function(e){ if(e.key==='Enter'){ go(input.value); } };
 
   function greet(){
-    addBot('👋 ¡Hola! Soy <strong>JAY</strong>, el asistente de JAY B Entertainment. ¿En qué puedo ayudarte?');
+    addBot('👋 Hi! / ¡Hola! I\'m <strong>JAY</strong>, the JAY B Entertainment AI assistant.<br>How can I help you? / ¿En qué puedo ayudarte?');
     showQR();
   }
 
   function showQR(){
-    var questions = ['¿Qué servicios ofrecen?','¿Cuánto cuesta una web?','¿Cómo los contacto?','¿Qué producciones han hecho?'];
+    var questions = [
+      'What services do you offer?',
+      '¿Qué servicios ofrecen?',
+      'How much does a website cost?',
+      '¿Cuánto cuesta una web?'
+    ];
     qrs.innerHTML = questions.map(function(q){
       return '<button class="jayb-qr" onclick="jaybSend(\''+q+'\')">' + q + '</button>';
     }).join('');
   }
 
   window.jaybSend = function(text){ go(text); };
+
+  function isSpanish(msg){
+    return /[áéíóúüñ¿¡]|hola|qué|qué|cómo|cuánto|cuanto|servicios|producciones|dónde|alianza|escrib|precio|contacto|gracias|buenos|buenas|tiene|tienen|hacen|pueden/i.test(msg);
+  }
 
   function go(text){
     text = (text||'').trim();
@@ -906,28 +915,62 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
 
   function reply(msg){
-    var m=msg.toLowerCase();
-    if(m.match(/servicio|service|ofrece|offer|hace|do you/))
-      return '🎬 Ofrecemos <strong>Producción Musical</strong>, <strong>Producción Audiovisual</strong> con IA (videoclips, cortometrajes, comerciales) y <strong>Diseño Web Profesional</strong> en alianza con JEGO Labs. ¿Qué te interesa?';
+    var m = msg.toLowerCase();
+    var es = isSpanish(msg);
+
+    if(m.match(/servicio|service|ofrece|offer|hace|what do|do you/))
+      return es
+        ? '🎬 Ofrecemos <strong>Producción Musical</strong>, <strong>Producción Audiovisual</strong> con IA (videoclips, cortometrajes, comerciales) y <strong>Diseño Web Profesional</strong> en alianza con JEGO Labs. ¿Qué te interesa?'
+        : '🎬 We offer <strong>Music Production</strong>, <strong>Audiovisual Production</strong> with AI (music videos, short films, commercials) and <strong>Professional Web Design</strong> in alliance with JEGO Labs. What are you interested in?';
+
     if(m.match(/web|página|pagina|sitio|website|precio|costo|cost|price|plan|starter|professional|premium/))
-      return '💻 Planes de diseño web:<br><strong>Starter</strong> $1,499 USD · 7-10 días<br><strong>Professional</strong> $2,999 USD · 15-20 días<br><strong>Premium</strong> $5,999 USD · 25-30 días<br>Escríbenos: <strong>+1 (786) 710-9406</strong>';
-    if(m.match(/contact|whatsapp|teléfono|telefono|phone|número|numero|hablar|escrib/))
-      return '📱 Contáctanos por WhatsApp: <strong>+1 (786) 710-9406</strong><br>Web: <strong>jaybentertainment.com</strong> · Miami, FL';
+      return es
+        ? '💻 Planes de diseño web:<br><strong>Starter</strong> $1,499 USD · 7-10 días<br><strong>Professional</strong> $2,999 USD · 15-20 días<br><strong>Premium</strong> $5,999 USD · 25-30 días<br>Escríbenos: <strong>+1 (786) 710-9406</strong>'
+        : '💻 Web design plans:<br><strong>Starter</strong> $1,499 USD · 7-10 days<br><strong>Professional</strong> $2,999 USD · 15-20 days<br><strong>Premium</strong> $5,999 USD · 25-30 days<br>Write us: <strong>+1 (786) 710-9406</strong>';
+
+    if(m.match(/contact|whatsapp|teléfono|telefono|phone|número|numero|hablar|escrib|reach/))
+      return es
+        ? '📱 Contáctanos por WhatsApp: <strong>+1 (786) 710-9406</strong><br>Web: <strong>jaybentertainment.com</strong> · Miami, FL'
+        : '📱 Contact us on WhatsApp: <strong>+1 (786) 710-9406</strong><br>Website: <strong>jaybentertainment.com</strong> · Miami, FL';
+
     if(m.match(/produc|video|clip|cortometraje|short|film|cine|salo|olvidar|cóndor|condor|guerra|tatiana/))
-      return '🎥 Producciones:<br>• <strong>SALO</strong> · Tatiana Silva<br>• <strong>Olvidarte Por Completo</strong> · Tatiana Silva<br>• <strong>El Despertar del Cóndor</strong> · Festiver 2025<br>• <strong>Juegos de Guerra</strong>';
+      return es
+        ? '🎥 Nuestras producciones:<br>• <strong>SALO</strong> · Tatiana Silva<br>• <strong>Olvidarte Por Completo</strong> · Tatiana Silva<br>• <strong>El Despertar del Cóndor</strong> · Festiver 2025<br>• <strong>Juegos de Guerra</strong>'
+        : '🎥 Our productions:<br>• <strong>SALO</strong> · Tatiana Silva<br>• <strong>Olvidarte Por Completo</strong> · Tatiana Silva<br>• <strong>El Despertar del Cóndor</strong> · Festiver 2025 Official Selection<br>• <strong>Juegos de Guerra</strong>';
+
     if(m.match(/jego|alianza|alliance|labs|films/))
-      return '🤝 Alianzas activas:<br><strong>JEGO Films & Music</strong> — producción audiovisual con IA<br><strong>JEGO Labs</strong> — diseño web profesional con IA';
-    if(m.match(/miami|ubica|donde|where|ciudad/))
-      return '📍 Sede en <strong>Miami, Florida, USA</strong> — operando internacionalmente.';
-    if(m.match(/comercial|commercial|publicidad|brand|marca/))
-      return '📺 Producimos comerciales con IA realista y 3D. Clientes: Arte Oral, Trujillo Abogados, JEGO Films. Escríbenos: <strong>+1 (786) 710-9406</strong>';
-    if(m.match(/ia|inteligencia|artificial|ai |tecnolog/))
-      return '🤖 Usamos <strong>IA generativa</strong> en producción audiovisual y diseño web, creando contenidos únicos e innovadores a precios competitivos.';
-    if(m.match(/hola|hello|hi|hey|buenas|buenos/))
-      return '👋 ¡Hola! Soy <strong>JAY</strong>, el asistente de JAY B Entertainment. ¿En qué puedo ayudarte?';
-    if(m.match(/gracias|thank/))
-      return '😊 ¡Con gusto! Si necesitas algo más escríbenos: <strong>+1 (786) 710-9406</strong>';
-    return '✨ Para más información escríbenos por WhatsApp: <strong>+1 (786) 710-9406</strong> — nuestro equipo te atenderá con gusto.';
+      return es
+        ? '🤝 Alianzas activas:<br><strong>JEGO Films & Music</strong> — producción audiovisual con IA<br><strong>JEGO Labs</strong> — diseño web profesional con IA'
+        : '🤝 Active alliances:<br><strong>JEGO Films & Music</strong> — audiovisual production with AI<br><strong>JEGO Labs</strong> — professional web design with AI';
+
+    if(m.match(/miami|ubica|donde|where|ciudad|location/))
+      return es
+        ? '📍 Sede en <strong>Miami, Florida, USA</strong> — operando internacionalmente.'
+        : '📍 Based in <strong>Miami, Florida, USA</strong> — operating internationally.';
+
+    if(m.match(/comercial|commercial|publicidad|brand|marca|advertising/))
+      return es
+        ? '📺 Producimos comerciales con IA realista y 3D. Clientes: Arte Oral, Trujillo Abogados, JEGO Films. Escríbenos: <strong>+1 (786) 710-9406</strong>'
+        : '📺 We produce high-impact commercials with realistic AI and 3D technology. Clients: Arte Oral, Trujillo Abogados, JEGO Films. Write us: <strong>+1 (786) 710-9406</strong>';
+
+    if(m.match(/ia|inteligencia|artificial|ai |tecnolog|technology/))
+      return es
+        ? '🤖 Usamos <strong>IA generativa</strong> en producción audiovisual y diseño web, creando contenidos únicos e innovadores a precios competitivos.'
+        : '🤖 We use cutting-edge <strong>generative AI</strong> in audiovisual production and web design, creating unique and innovative content at competitive prices.';
+
+    if(m.match(/hola|hello|hi|hey|buenas|buenos|good morning|good afternoon/))
+      return es
+        ? '👋 ¡Hola! Soy <strong>JAY</strong>, el asistente AI de JAY B Entertainment. ¿En qué puedo ayudarte?'
+        : '👋 Hello! I\'m <strong>JAY</strong>, the JAY B Entertainment AI assistant. How can I help you today?';
+
+    if(m.match(/gracias|thank|thanks/))
+      return es
+        ? '😊 ¡Con gusto! Si necesitas algo más escríbenos: <strong>+1 (786) 710-9406</strong>'
+        : '😊 You\'re welcome! Feel free to reach us anytime: <strong>+1 (786) 710-9406</strong>';
+
+    return es
+      ? '✨ Para más información escríbenos por WhatsApp: <strong>+1 (786) 710-9406</strong> — nuestro equipo te atenderá con gusto.'
+      : '✨ For more information write us on WhatsApp: <strong>+1 (786) 710-9406</strong> — our team will be happy to assist you.';
   }
 })();
 </script>
