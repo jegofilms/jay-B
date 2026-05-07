@@ -272,6 +272,7 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   .hero-mark img{width:clamp(180px, 70vw, 320px);}
   .stat-n{font-size:2rem;}
   .s-title{font-size:clamp(1.6rem, 7vw, 2.5rem);}
+  .about-video{padding:0 1.5rem 4rem !important;}
 }
 @media(max-width:580px){ .svc-grid{grid-template-columns:1fr;} }
 </style>
@@ -347,6 +348,20 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   </div>
 </section>
 
+<!-- VIDEO SECTION -->
+<div class="about-video reveal" style="position:relative;z-index:1;padding:0 4rem 5rem;">
+  <div style="position:relative;width:100%;max-width:1040px;margin:0 auto;aspect-ratio:16/9;border:0.5px solid rgba(0,229,255,0.15);box-shadow:0 8px 48px rgba(0,0,0,0.7);">
+    <iframe
+      src="https://www.youtube.com/embed/8dJwy95Ona4?rel=0&modestbranding=1"
+      title="JAY B Entertainment"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position:absolute;inset:0;width:100%;height:100%;">
+    </iframe>
+  </div>
+</div>
+
 <div class="banner">
   <div class="blink"></div>
   <p>
@@ -380,7 +395,6 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   </div>
 </section>
 
-<section id="services">
   <div class="s-header reveal">
     <div class="s-tag" data-es="Servicios" data-en="Services">Servicios</div>
     <h2 class="s-title">
