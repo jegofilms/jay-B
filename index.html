@@ -362,12 +362,14 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   </div>
 </div>
 
-<div class="banner">
+<!-- ARTISTAS EXCLUSIVOS BANNER -->
+<div style="position:relative;z-index:1;background:var(--surface);border-top:0.5px solid rgba(201,168,76,0.15);border-bottom:0.5px solid rgba(201,168,76,0.15);padding:0.8rem 4rem;display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;">
   <div class="blink"></div>
-  <p>
-    <strong data-es="Próximamente:" data-en="Coming Soon:">Próximamente:</strong>&nbsp;
-    <span data-es="Expansión de nuevos servicios y alianzas — Lanzamiento Mediados 2026" data-en="New services and alliances expansion — Launching Mid 2026">Expansión de nuevos servicios y alianzas — Lanzamiento Mediados 2026</span>
-  </p>
+  <span style="font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);" data-es="Artistas & Eventos Exclusivos —" data-en="Artists & Exclusive Events —">Artistas & Eventos Exclusivos —</span>
+  <a href="https://www.youtube.com/watch?v=MK5gDBrik-A" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--gold)'">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>
+    <span data-es="Luxury Live Music Experiences for Exclusive Events" data-en="Luxury Live Music Experiences for Exclusive Events">Luxury Live Music Experiences for Exclusive Events</span>
+  </a>
 </div>
 
 <section id="about">
@@ -402,9 +404,18 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
       <span class="ol" data-es=" HACEMOS" data-en=" DO"> HACEMOS</span>
     </h2>
   </div>
-  <div class="svc-grid" style="grid-template-columns: repeat(2, 1fr);">
+  <div class="svc-grid" style="grid-template-columns: repeat(3, 1fr);">
     <div class="svc reveal"><div class="svc-n">01</div><div class="svc-name" data-es="Producción Musical" data-en="Music Production">Producción Musical</div><p class="svc-desc" data-es="Producción musical profesional de alto nivel, desde la composición hasta el master, con los mejores estándares de la industria." data-en="High-level professional music production, from composition to mastering, with the best industry standards.">Producción musical profesional de alto nivel, desde la composición hasta el master, con los mejores estándares de la industria.</p></div>
     <div class="svc reveal"><div class="svc-n">02</div><div class="svc-name" data-es="Producción Audiovisual" data-en="Audiovisual Production">Producción Audiovisual</div><p class="svc-desc" data-es="Con JEGO Producciones: videoclips, cine, cortometrajes y comerciales con tecnología de inteligencia artificial de vanguardia." data-en="With JEGO Productions: music videos, films, short films and commercials using cutting-edge artificial intelligence technology.">Con JEGO Producciones: videoclips, cine, cortometrajes y comerciales con tecnología de inteligencia artificial de vanguardia.</p></div>
+    <div class="svc reveal" style="position:relative;overflow:hidden;">
+      <div class="svc-n">03</div>
+      <div class="svc-name" data-es="Artistas & Eventos Exclusivos" data-en="Artists & Exclusive Events">Artistas & Eventos Exclusivos</div>
+      <p class="svc-desc" data-es="Experiencias musicales en vivo de lujo para eventos exclusivos. Artistas de primer nivel para bodas, galas corporativas, eventos privados y celebraciones VIP." data-en="Luxury live music experiences for exclusive events. Top-tier artists for weddings, corporate galas, private events and VIP celebrations.">Experiencias musicales en vivo de lujo para eventos exclusivos. Artistas de primer nivel para bodas, galas corporativas, eventos privados y celebraciones VIP.</p>
+      <a href="https://www.youtube.com/watch?v=MK5gDBrik-A" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:1.2rem;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--cyan);text-decoration:none;border:0.5px solid rgba(0,229,255,0.25);padding:7px 14px;transition:all 0.3s;" onmouseover="this.style.background='rgba(0,229,255,0.07)'" onmouseout="this.style.background='transparent'">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>
+        <span data-es="Ver Video" data-en="Watch Video">Ver Video</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -940,8 +951,13 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
     if(m.match(/servicio|service|ofrece|offer|hace|what do|do you/))
       return es
-        ? '🎬 Ofrecemos <strong>Producción Musical</strong>, <strong>Producción Audiovisual</strong> con IA (videoclips, cortometrajes, comerciales) y <strong>Diseño Web Profesional</strong> en alianza con JEGO Labs. ¿Qué te interesa?'
-        : '🎬 We offer <strong>Music Production</strong>, <strong>Audiovisual Production</strong> with AI (music videos, short films, commercials) and <strong>Professional Web Design</strong> in alliance with JEGO Labs. What are you interested in?';
+        ? '🎬 Ofrecemos <strong>Producción Musical</strong>, <strong>Producción Audiovisual</strong> con IA (videoclips, cortometrajes, comerciales), <strong>Artistas & Eventos Exclusivos</strong> en vivo, y <strong>Diseño Web Profesional</strong> en alianza con JEGO Labs. ¿Qué te interesa?'
+        : '🎬 We offer <strong>Music Production</strong>, <strong>Audiovisual Production</strong> with AI (music videos, short films, commercials), <strong>Artists & Exclusive Live Events</strong>, and <strong>Professional Web Design</strong> in alliance with JEGO Labs. What are you interested in?';
+
+    if(m.match(/event|evento|gala|boda|wedding|vip|live|vivo|lujo|luxury|artis|corporat|privad/))
+      return es
+        ? '🎺 Ofrecemos experiencias musicales en vivo de lujo para <strong>bodas, galas corporativas, eventos privados y celebraciones VIP</strong>. Artistas de primer nivel disponibles. Escríbenos: <strong>+1 (786) 710-9406</strong>'
+        : '🎺 We offer luxury live music experiences for <strong>weddings, corporate galas, private events and VIP celebrations</strong>. Top-tier artists available. Write us: <strong>+1 (786) 710-9406</strong>';
 
     if(m.match(/web|página|pagina|sitio|website|precio|costo|cost|price|plan|starter|professional|premium/))
       return es
