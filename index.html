@@ -362,15 +362,51 @@ footer { background: var(--dark); border-top: 0.5px solid rgba(0,229,255,0.07); 
   </div>
 </div>
 
-<!-- ARTISTAS EXCLUSIVOS BANNER -->
-<div style="position:relative;z-index:1;background:var(--surface);border-top:0.5px solid rgba(201,168,76,0.15);border-bottom:0.5px solid rgba(201,168,76,0.15);padding:0.8rem 4rem;display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;">
-  <div class="blink"></div>
-  <span style="font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);" data-es="Artistas & Eventos Exclusivos —" data-en="Artists & Exclusive Events —">Artistas & Eventos Exclusivos —</span>
-  <a href="https://www.youtube.com/watch?v=MK5gDBrik-A" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color='var(--gold)'">
-    <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>
-    <span data-es="Luxury Live Music Experiences for Exclusive Events" data-en="Luxury Live Music Experiences for Exclusive Events">Luxury Live Music Experiences for Exclusive Events</span>
+<!-- ARTISTAS EXCLUSIVOS HERO -->
+<section style="position:relative;z-index:1;padding:0;background:var(--black);">
+  <a href="https://www.youtube.com/watch?v=MK5gDBrik-A" target="_blank" style="display:block;position:relative;width:100%;overflow:hidden;text-decoration:none;cursor:pointer;" class="reveal">
+
+    <!-- YouTube thumbnail as background -->
+    <div style="position:relative;width:100%;aspect-ratio:16/6;min-height:320px;overflow:hidden;">
+      <img
+        src="https://img.youtube.com/vi/MK5gDBrik-A/maxresdefault.jpg"
+        alt="Artistas & Eventos Exclusivos — JAY B Entertainment"
+        style="width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(0.45);transition:transform 0.6s,filter 0.4s;"
+        onmouseover="this.style.transform='scale(1.03)';this.style.filter='brightness(0.55)'"
+        onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.45)'"
+      >
+
+      <!-- Gradient overlay -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(2,4,8,0.85) 0%, rgba(2,4,8,0.3) 60%, transparent 100%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(2,4,8,0.7) 0%, transparent 50%);"></div>
+
+      <!-- Content overlay -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:3rem 4rem;">
+
+        <div style="display:inline-flex;align-items:center;gap:0.7rem;margin-bottom:1.2rem;">
+          <div class="blink"></div>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--cyan);" data-es="Nuevo Servicio" data-en="New Service">Nuevo Servicio</span>
+        </div>
+
+        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(2rem,5.5vw,5rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;color:#fff;margin-bottom:1rem;max-width:700px;">
+          <span style="display:block;" data-es="ARTISTAS &" data-en="ARTISTS &">ARTISTAS &</span>
+          <span style="display:block;color:var(--gold-light);" data-es="EVENTOS EXCLUSIVOS" data-en="EXCLUSIVE EVENTS">EVENTOS EXCLUSIVOS</span>
+        </h2>
+
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;line-height:1.7;color:rgba(226,234,248,0.7);max-width:480px;margin-bottom:1.8rem;" data-es="Experiencias musicales en vivo de lujo para bodas, galas corporativas, eventos privados y celebraciones VIP." data-en="Luxury live music experiences for weddings, corporate galas, private events and VIP celebrations.">Experiencias musicales en vivo de lujo para bodas, galas corporativas, eventos privados y celebraciones VIP.</p>
+
+        <!-- Play button -->
+        <div style="display:inline-flex;align-items:center;gap:1rem;">
+          <div style="width:56px;height:56px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;background:rgba(201,168,76,0.15);flex-shrink:0;">
+            <svg viewBox="0 0 24 24" fill="var(--gold)" style="width:22px;height:22px;margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);" data-es="Ver experiencia completa" data-en="Watch full experience">Ver experiencia completa</span>
+        </div>
+
+      </div>
+    </div>
   </a>
-</div>
+</section>
 
 <section id="about">
   <div class="about-grid">
